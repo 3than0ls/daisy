@@ -1,3 +1,4 @@
+from random import randint
 import pygame
 
 from src.daisy import Daisy
@@ -8,9 +9,9 @@ class Game:
         self.screen = screen
 
         self.WIDTH, self.HEIGHT = screen.get_size()
-        self.daisy1 = Daisy(self.screen, 150, 150, 0.5)
-        self.daisy2 = Daisy(self.screen, 250, 150, 1)
-        self.daisy3 = Daisy(self.screen, 350, 150, 1.5)
+
+        self.daisies = []
+        self.ticker = 0
 
     def draw_background(self):
         """draw a background and create a border by drawing a smaller white square on top of a black background"""
@@ -20,6 +21,15 @@ class Game:
 
     def update(self):
         self.draw_background()
-        self.daisy1.update()
-        self.daisy2.update()
-        self.daisy3.update()
+
+        if self.ticker % 10000 == 0 and len(self.daisies) < 3:
+            margin = 100
+            daisy = Daisy(self.screen, randint(margin, self.WIDTH-margin),
+                          randint(margin, self.HEIGHT-margin), 1 + randint(-4, 4) / 10)
+
+            self.daisies.append(daisy)
+
+        for daisy in self.daisies:
+            daisy.update()
+
+        self.ticker += 1

@@ -12,6 +12,7 @@ def main():
 
     # initialize screen display
     display = pygame.display
+    display.set_icon(pygame.image.load('./assets/daisy.png'))
     screen = display.set_mode((WIDTH, HEIGHT))
     screen.fill((0, 0, 0))
     display.set_caption("Daisy")
